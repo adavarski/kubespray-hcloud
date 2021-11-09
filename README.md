@@ -250,6 +250,8 @@ kube-system   replicaset.apps/dns-autoscaler-5ffdc7f89d            1         1  
 
 $ export HCLOUD_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+### Apply hcloud add-ons: CCM & CSI
+
 $ hcloud network list
 ID        NAME                               IP RANGE      SERVERS
 1262393   hetzner-kubeadm-fktytPQ3PQlw44L9   10.0.0.0/16   5 servers
@@ -264,11 +266,18 @@ stringData:
   token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   network: "1262393"
 
-### Apply hcloud add-ons: CCM & CSI
+$ cat hcloud-add-ons/CSI-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hcloud-csi
+  namespace: kube-system
+stringData:
+  token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx"
+  
 
 $ kubectl apply -f hcloud-add-ons/CCM-secret.yaml
 secret/hcloud created
-
 $ kubectl apply -f https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/latest/download/ccm-networks.yaml
 serviceaccount/cloud-controller-manager created
 clusterrolebinding.rbac.authorization.k8s.io/system:cloud-controller-manager created
@@ -277,7 +286,7 @@ deployment.apps/hcloud-cloud-controller-manager created
 
 $ kubectl apply -f hcloud-add-ons/CSI-secret.yaml 
 secret/hcloud-csi created
-davar@carbon:~/Documents/0-0-0-0-GoStudent/0-GITHUB-tf-ansible-k8s/TEST-repo/Production/kubespray/terraform-hetzner-kubeadm$ kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/v1.5.3/deploy/kubernetes/hcloud-csi.yml
+$ kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/v1.5.3/deploy/kubernetes/hcloud-csi.yml
 csidriver.storage.k8s.io/csi.hetzner.cloud created
 storageclass.storage.k8s.io/hcloud-volumes created
 serviceaccount/hcloud-csi created
