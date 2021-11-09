@@ -248,7 +248,7 @@ kube-system   replicaset.apps/calico-kube-controllers-684bcfdc59   1         1  
 kube-system   replicaset.apps/coredns-8474476ff8                   2         2         2       9m54s   coredns                   k8s.gcr.io/coredns/coredns:v1.8.0                            k8s-app=kube-dns,pod-template-hash=8474476ff8
 kube-system   replicaset.apps/dns-autoscaler-5ffdc7f89d            1         1         1       9m52s   autoscaler                k8s.gcr.io/cpa/cluster-proportional-autoscaler-amd64:1.8.5   k8s-app=dns-autoscaler,pod-template-hash=5ffdc7f89d
 
-$ export HCLOUD_TOKEN="YVc08n6Z3ev3keXupzREuOfkFVp2aTZ4HNdOZ80Mm5Xmot8GsQ6UelYz2Z8KNeR2"
+$ export HCLOUD_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 $ hcloud network list
 ID        NAME                               IP RANGE      SERVERS
@@ -261,7 +261,7 @@ metadata:
   name: hcloud
   namespace: kube-system
 stringData:
-  token: "YVc08n6Z3ev3keXupzREuOfkFVp2aTZ4HNdOZ80Mm5Xmot8GsQ6UelYz2Z8KNeR2"
+  token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   network: "1262393"
 
 ### Apply hcloud add-ons: CCM & CSI
