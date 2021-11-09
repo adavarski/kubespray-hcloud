@@ -1,39 +1,15 @@
-# Hetzner cluster: kybespray-based
+# Hetzner k8s cluster: kybespray-based
 
 This module assumes that you have a public key in `~/.ssh/id_rsa.pub` and a Hetzner API token ready to be used.
 
-```
-worker-002
-CPX11 / 40 GB / eu-central
-95.217.166.151
-Helsinki
-3 minutes ago
-worker-001
-CPX11 / 40 GB / eu-central
-65.108.52.118
-Helsinki
-3 minutes ago
-master-003
-CPX11 / 40 GB / eu-central
-95.217.166.243
-Helsinki
-3 minutes ago
-master-001
-CPX11 / 40 GB / eu-central
-95.217.166.247
-Helsinki
-3 minutes ago
-master-002
-CPX11 / 40 GB / eu-central
-95.217.166.203
-Helsinki
-3 minutes ago
+Example:
+
 ```
 
-
-master1: 95.217.166.247
-```
 $ terraform apply
+
+...
+
 Apply complete! Resources: 14 added, 0 changed, 0 destroyed.
 
 Outputs:
@@ -78,13 +54,14 @@ CPX11 / 40 GB / eu-central
 Helsinki
 3 minutes ago
 
+Note: master1: 95.217.166.247
 
-master1: 95.217.166.247
+$ scp root@23.88.61.1:/etc/kubernetes/admin.conf .
 
-scp root@23.88.61.1:/etc/kubernetes/admin.conf .
+$ sed -i "s/127.0.0.1/23.88.61.1/" admin.conf 
+$ export KUBECONFIG=./admin.conf 
 
-sed -i "s/127.0.0.1/23.88.61.1/" admin.conf 
-export KUBECONFIG=./admin.conf 
+$ ssh root@95.217.166.247
 
 root@master-001:~# apt update
 root@master-001:~# apt install python-pip3
@@ -120,7 +97,6 @@ DEBUG: adding host node2 to group kube_node
 DEBUG: adding host node3 to group kube_node
 DEBUG: adding host node4 to group kube_node
 DEBUG: adding host node5 to group kube_node
-
 
 root@master-001:~/kubespray# vi inventory/mycluster/hosts.yaml
 root@master-001:~/kubespray# cat inventory/mycluster/hosts.yaml
@@ -171,7 +147,7 @@ all:
     calico_rr:
       hosts: {}
 
-ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml
+$ ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml
 Tuesday 09 November 2021  10:47:21 +0000 (0:00:00.158)       0:12:41.833 ****** 
 =============================================================================== 
 container-engine/docker : ensure docker packages are installed ------------------------------------------------------------------------------------------------------------------------------------------------------ 31.01s
@@ -196,7 +172,7 @@ etcd : wait for etcd up --------------------------------------------------------
 download : download_container | Download image if required ----------------------------------------------------------------------------------------------------------------------------------------------------------- 6.09s
 root@master-001:~/kubespray# 
 
-### Laptop 
+### Laptop/Worksation 
 
 $ scp root@95.217.166.247:/etc/kubernetes/admin.conf .
 admin.conf                                                                                                                                                                                 100% 5649   113.4KB/s   00:00    
@@ -279,10 +255,10 @@ stringData:
   token: "YVc08n6Z3ev3keXupzREuOfkFVp2aTZ4HNdOZ80Mm5Xmot8GsQ6UelYz2Z8KNeR2"
   network: "1262393"
 
+### Apply hcloud add-ons: CCM & VSI
+
 $ kubectl apply -f hcloud-add-ons/CCM-secret.yaml
 secret/hcloud created
-
-
 
 $ kubectl apply -f https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/latest/download/ccm-networks.yaml
 serviceaccount/cloud-controller-manager created
@@ -371,6 +347,8 @@ kube-system   replicaset.apps/hcloud-cloud-controller-manager-666d7bbfcc   1    
 NAMESPACE     NAME                                     READY   AGE   CONTAINERS                                                                  IMAGES
 kube-system   statefulset.apps/hcloud-csi-controller   0/1     50s   csi-attacher,csi-resizer,csi-provisioner,hcloud-csi-driver,liveness-probe   quay.io/k8scsi/csi-attacher:v2.2.0,quay.io/k8scsi/csi-resizer:v0.3.0,quay.io/k8scsi/csi-provisioner:v1.6.0,hetznercloud/hcloud-csi-driver:1.5.3,quay.io/k8scsi/livenessprobe:v1.1.0
 davar@carbon:~/Documents/0-0-0-0-GoStudent/0-GITHUB-tf-ansible-k8s/TEST-repo/Production/kubespray/terraform-hetzner-kubeadm$ 
+
+### Test hcloud LB & PVC
 
 $ kubectl apply -f hello/hello-default.yaml 
 deployment.apps/hello-kubernetes created
