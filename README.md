@@ -158,6 +158,13 @@ all:
       hosts: {}
 $ ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml
 ...
+PLAY RECAP ******************************************************************************************************************************************************************************************************************
+localhost                  : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node1                      : ok=587  changed=124  unreachable=0    failed=0    skipped=1167 rescued=0    ignored=2   
+node2                      : ok=521  changed=108  unreachable=0    failed=0    skipped=1024 rescued=0    ignored=1   
+node3                      : ok=523  changed=111  unreachable=0    failed=0    skipped=1022 rescued=0    ignored=1   
+node4                      : ok=370  changed=76   unreachable=0    failed=0    skipped=651  rescued=0    ignored=1   
+node5                      : ok=370  changed=76   unreachable=0    failed=0    skipped=651  rescued=0    ignored=1   
 
 Tuesday 09 November 2021  10:47:21 +0000 (0:00:00.158)       0:12:41.833 ****** 
 =============================================================================== 
