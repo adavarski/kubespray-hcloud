@@ -1,6 +1,25 @@
 # Hetzner k8s cluster: kybespray-based
 
-This module assumes that you have a public key in `~/.ssh/id_rsa.pub` and a Hetzner API token ready to be used.
+Note: This module assumes that you have a public key in `~/.ssh/id_rsa.pub` and a Hetzner API token ready to be used.
+
+## Usage
+
+```
+### Provisioning k8s infrastructure
+
+$ cat terraform.tfvars 
+multi_master = true
+master_node_count  = 3
+worker_node_count  = 2
+hcloud_token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx" 
+
+$ terraform init 
+$ terraform plan
+$ terraform apply
+
+### Use kybespray for k8s cluster provisioning (see bellow examle)
+```
+
 
 Example:
 
