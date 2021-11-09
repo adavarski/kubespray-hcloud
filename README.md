@@ -1,11 +1,11 @@
-# Hetzner k8s cluster: kybespray-based
+# Hetzner k8s cluster: kybespray-based (HA: multi-master)
 
 Note: This module assumes that you have a public key in `~/.ssh/id_rsa.pub` and a Hetzner API token ready to be used.
 
 ## Usage
 
 ```
-### Provisioning k8s infrastructure
+### Provisioning hcloud infrastructure:
 
 $ cat terraform.tfvars 
 multi_master = true
@@ -17,9 +17,9 @@ $ terraform init
 $ terraform plan
 $ terraform apply
 
-### Use kybespray for k8s cluster provisioning (see bellow examle)
-```
+### Use kubespray for k8s cluster provisioning (see bellow examle)
 
+```
 
 ## Example:
 
@@ -47,6 +47,7 @@ worker_ip_addresses = [
   "10.0.1.2",
 ]
 
+### hcloud UI
 worker-002
 CPX11 / 40 GB / eu-central
 95.217.166.151
@@ -73,27 +74,18 @@ CPX11 / 40 GB / eu-central
 Helsinki
 3 minutes ago
 
-Note: master1: 95.217.166.247
-
-$ scp root@23.88.61.1:/etc/kubernetes/admin.conf .
-
-$ sed -i "s/127.0.0.1/23.88.61.1/" admin.conf 
-$ export KUBECONFIG=./admin.conf 
+### run on master-001: 95.217.166.247
 
 $ ssh root@95.217.166.247
 
 root@master-001:~# apt update
+
 root@master-001:~# apt install python-pip3
-
-
 root@master-001:~# git clone https://github.com/kubernetes-sigs/kubespray
 root@master-001:~# cd kubespray
 root@master-001:~/kubespray# pip3 install -r requirements.txt
-
 root@master-001:~/kubespray# cp -rfp inventory/sample inventory/mycluster
-
-declare -a IPS=(10.0.1.3 10.0.1.4 10.0.1.5 10.0.1.1 10.0.1.2)
-
+root@master-001:~/kubespray# declare -a IPS=(10.0.1.3 10.0.1.4 10.0.1.5 10.0.1.1 10.0.1.2)
 root@master-001:~/kubespray# CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 DEBUG: Adding group all
 DEBUG: Adding group kube_control_plane
@@ -116,7 +108,6 @@ DEBUG: adding host node2 to group kube_node
 DEBUG: adding host node3 to group kube_node
 DEBUG: adding host node4 to group kube_node
 DEBUG: adding host node5 to group kube_node
-
 root@master-001:~/kubespray# vi inventory/mycluster/hosts.yaml
 root@master-001:~/kubespray# cat inventory/mycluster/hosts.yaml
 all:
@@ -165,8 +156,9 @@ all:
         kube_node:
     calico_rr:
       hosts: {}
-
 $ ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml
+...
+
 Tuesday 09 November 2021  10:47:21 +0000 (0:00:00.158)       0:12:41.833 ****** 
 =============================================================================== 
 container-engine/docker : ensure docker packages are installed ------------------------------------------------------------------------------------------------------------------------------------------------------ 31.01s
@@ -189,13 +181,11 @@ download : download_container | Download image if required ---------------------
 download : download_container | Download image if required ----------------------------------------------------------------------------------------------------------------------------------------------------------- 6.33s
 etcd : wait for etcd up ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 6.10s
 download : download_container | Download image if required ----------------------------------------------------------------------------------------------------------------------------------------------------------- 6.09s
-root@master-001:~/kubespray# 
 
-### Laptop/Worksation 
+### Laptop/Worksation (k8s deploy hcloud add-ons/etc.)
 
-$ scp root@95.217.166.247:/etc/kubernetes/admin.conf .
-admin.conf                                                                                                                                                                                 100% 5649   113.4KB/s   00:00    
-$ sed -i "s/127.0.0.1/95.217.166.247/" admin.conf 
+$ scp root@23.88.61.1:/etc/kubernetes/admin.conf .
+$ sed -i "s/127.0.0.1/23.88.61.1/" admin.conf 
 $ export KUBECONFIG=./admin.conf 
 
 $ kubectl get node -o wide
@@ -274,7 +264,7 @@ stringData:
   token: "YVc08n6Z3ev3keXupzREuOfkFVp2aTZ4HNdOZ80Mm5Xmot8GsQ6UelYz2Z8KNeR2"
   network: "1262393"
 
-### Apply hcloud add-ons: CCM & VSI
+### Apply hcloud add-ons: CCM & CSI
 
 $ kubectl apply -f hcloud-add-ons/CCM-secret.yaml
 secret/hcloud created
@@ -297,7 +287,6 @@ statefulset.apps/hcloud-csi-controller created
 daemonset.apps/hcloud-csi-node created
 service/hcloud-csi-controller-metrics created
 service/hcloud-csi-node-metrics created
-
 
 $ kubectl get all --all-namespaces -o wide
 NAMESPACE     NAME                                                   READY   STATUS    RESTARTS      AGE   IP             NODE     NOMINATED NODE   READINESS GATES
