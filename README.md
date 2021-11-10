@@ -1,4 +1,4 @@
-# Hetzner k8s cluster: kybespray-based (HA: multi-master)
+# Hetzner k8s cluster: kubespray-based (HA: multi-master)
 
 Note: This module assumes that you have a public key in `~/.ssh/id_rsa.pub` and a Hetzner API token ready to be used.
 
