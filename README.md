@@ -255,9 +255,10 @@ kube-system   replicaset.apps/calico-kube-controllers-684bcfdc59   1         1  
 kube-system   replicaset.apps/coredns-8474476ff8                   2         2         2       9m54s   coredns                   k8s.gcr.io/coredns/coredns:v1.8.0                            k8s-app=kube-dns,pod-template-hash=8474476ff8
 kube-system   replicaset.apps/dns-autoscaler-5ffdc7f89d            1         1         1       9m52s   autoscaler                k8s.gcr.io/cpa/cluster-proportional-autoscaler-amd64:1.8.5   k8s-app=dns-autoscaler,pod-template-hash=5ffdc7f89d
 
-$ export HCLOUD_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ### Apply hcloud add-ons: CCM & CSI
+
+$ export HCLOUD_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 $ hcloud network list
 ID        NAME                               IP RANGE      SERVERS
@@ -372,7 +373,7 @@ NAMESPACE     NAME                                     READY   AGE   CONTAINERS 
 kube-system   statefulset.apps/hcloud-csi-controller   0/1     50s   csi-attacher,csi-resizer,csi-provisioner,hcloud-csi-driver,liveness-probe   quay.io/k8scsi/csi-attacher:v2.2.0,quay.io/k8scsi/csi-resizer:v0.3.0,quay.io/k8scsi/csi-provisioner:v1.6.0,hetznercloud/hcloud-csi-driver:1.5.3,quay.io/k8scsi/livenessprobe:v1.1.0
 davar@carbon:~/Documents/0-0-0-0-GoStudent/0-GITHUB-tf-ansible-k8s/TEST-repo/Production/kubespray/terraform-hetzner-kubeadm$ 
 
-### Test hcloud LB & PVC
+### Test hcloud LB & PVC creation:
 
 $ kubectl apply -f hello/hello-default.yaml 
 deployment.apps/hello-kubernetes created
