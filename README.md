@@ -395,6 +395,11 @@ replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       17s
 
 ```
 
+LB hcloud UI:
+
+<img src="/pictures/kubespary-hcloud-load_balancer.png" width="800">
+
+
 ## Ref: 
 
 - https://github.com/kubernetes-sigs/kubespray/blob/master/README.md
