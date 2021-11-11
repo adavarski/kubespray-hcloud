@@ -380,7 +380,7 @@ service/hello-kubernetes created
 persistentvolumeclaim/csi-pvc created
 ```
 
-Ref: 
+## Ref: 
 
 - https://kubernetes.io/docs/setup/production-environment/tools/kubespray/
 - https://github.com/kubernetes-sigs/kubespray/blob/master/README.md
