@@ -393,6 +393,11 @@ deployment.apps/hello-kubernetes   1/1     1            1           17s
 NAME                                          DESIRED   CURRENT   READY   AGE
 replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       17s
 
+### Clean - delete LB & PVC and terraform destroy 
+
+$ kubectl delete -f hello/hello-static-default.yaml
+$ terraform destroy 
+
 ```
 
 LB hcloud UI:
