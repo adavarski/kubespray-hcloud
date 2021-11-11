@@ -396,8 +396,12 @@ replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       17s
 ```
 
 LB hcloud UI:
-
+<img src="/pictures/kubespray-hcloud-volumes.png" width="800">
 <img src="/pictures/kubespary-hcloud-load_balancer.png" width="800">
+<img src="/pictures/kubespray-hclous-load_balancer-targets.png" width="800">
+<img src="/pictures/kubespray-hcloud-load_balaners-after-add-target.png" width="800">
+<img src="/pictures/kubespray-hcloud-load_balancer-targets-check.png" width="800">
+<img src="/pictures/kubespray-hcloud-hello.png" width="800">
 
 
 ## Ref: 
