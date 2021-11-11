@@ -405,7 +405,7 @@ LB hcloud UI:
 
 ## Clean - delete LB & PVC and terraform destroy 
 ```
-$ kubectl delete -f hello/hello-static-default.yaml
+$ kubectl delete -f hello/hello-default.yaml
 $ terraform destroy 
 ```
 
