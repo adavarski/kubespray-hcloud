@@ -379,3 +379,5 @@ deployment.apps/hello-kubernetes created
 service/hello-kubernetes created
 persistentvolumeclaim/csi-pvc created
 ```
+
+Ref: https://kubernetes.io/docs/setup/production-environment/tools/kubespray/
