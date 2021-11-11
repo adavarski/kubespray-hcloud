@@ -371,7 +371,6 @@ kube-system   replicaset.apps/hcloud-cloud-controller-manager-666d7bbfcc   1    
 
 NAMESPACE     NAME                                     READY   AGE   CONTAINERS                                                                  IMAGES
 kube-system   statefulset.apps/hcloud-csi-controller   0/1     50s   csi-attacher,csi-resizer,csi-provisioner,hcloud-csi-driver,liveness-probe   quay.io/k8scsi/csi-attacher:v2.2.0,quay.io/k8scsi/csi-resizer:v0.3.0,quay.io/k8scsi/csi-provisioner:v1.6.0,hetznercloud/hcloud-csi-driver:1.5.3,quay.io/k8scsi/livenessprobe:v1.1.0
-davar@carbon:~/Documents/0-0-0-0-GoStudent/0-GITHUB-tf-ansible-k8s/TEST-repo/Production/kubespray/terraform-hetzner-kubeadm$ 
 
 ### Test hcloud LB & PVC creation:
 
