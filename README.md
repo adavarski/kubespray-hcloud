@@ -80,7 +80,7 @@ $ ssh root@95.217.166.247
 
 root@master-001:~# apt update
 
-root@master-001:~# apt install python-pip3
+root@master-001:~# apt install python3-pip
 root@master-001:~# git clone https://github.com/kubernetes-sigs/kubespray
 root@master-001:~# cd kubespray
 root@master-001:~/kubespray# pip3 install -r requirements.txt
