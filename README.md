@@ -378,6 +378,21 @@ $ kubectl apply -f hello/hello-default.yaml
 deployment.apps/hello-kubernetes created
 service/hello-kubernetes created
 persistentvolumeclaim/csi-pvc created
+
+$ kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/hello-kubernetes-6f8d7694bc-mgwct   1/1     Running   0          17s
+
+NAME                       TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+service/hello-kubernetes   LoadBalancer   10.233.2.38   <pending>     8080:32738/TCP   17s
+service/kubernetes         ClusterIP      10.233.0.1    <none>        443/TCP          12m
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-kubernetes   1/1     1            1           17s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       17s
+
 ```
 
 ## Ref: 
