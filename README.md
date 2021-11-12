@@ -273,7 +273,7 @@ metadata:
   namespace: kube-system
 stringData:
   token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-  network: "1264676"
+  network: "1264461"
 
 $ cat hcloud-add-ons/CSI-secret.yaml
 apiVersion: v1
