@@ -74,7 +74,7 @@ $ ssh root@23.88.101.36
 root@master-001:~# apt update
 root@master-001:~# git clone https://github.com/kubernetes-sigs/kubespray
 root@master-001:~# cd kubespray
-root@master-001:~/kubespray# apt install python3-pip
+root@master-001:~/kubespray# apt install python3-pip -y
 root@master-001:~/kubespray# pip3 install -r requirements.txt
 root@master-001:~/kubespray# cp -rfp inventory/sample inventory/mycluster
 root@master-001:~/kubespray# declare -a IPS=(10.0.1.3 10.0.1.4 10.0.1.5 10.0.1.1 10.0.1.2)
